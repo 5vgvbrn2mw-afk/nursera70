@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KazConnect</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #F0F2F8; font-family: 'Segoe UI', system-ui, sans-serif; color: #1a1a2e; }
+
+  /* AUTH */
+  .auth-page { min-height: 100vh; background: linear-gradient(135deg, #6C63FF, #FF6584); display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .auth-card { background: #fff; border-radius: 24px; padding: 36px 32px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(108,99,255,0.25); }
+  .auth-logo { font-size: 22px; font-weight: 800; color: #6C63FF; text-align: center; margin-bottom: 20px; }
+  .auth-title { font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 4px; }
+  .auth-sub { font-size: 14px; color: #999; text-align: center; margin-bottom: 24px; }
+  .auth-error { background: #FFF0F3; color: #FF4D6D; border-radius: 10px; padding: 10px 14px; font-size: 13px; margin-bottom: 16px; font-weight: 500; display: none; }
+  .auth-label { display: block; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 6px; margin-top: 14px; }
+  .auth-input { width: 100%; border: 1.5px solid #E8EAF0; border-radius: 12px; padding: 11px 14px; font-size: 15px; outline: none; font-family: inherit; color: #1a1a2e; background: #FAFAFA; }
+  .auth-input:focus { border-color: #6C63FF; }
+  .auth-btn { width: 100%; background: linear-gradient(135deg, #6C63FF, #9C8FFF); color: #fff; border: none; border-radius: 14px; padding: 14px; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 24px; box-shadow: 0 4px 16px rgba(108,99,255,0.4); }
+  .auth-hint { text-align: center; margin-top: 16px; font-size: 14px; color: #888; }
+  .auth-link { color: #6C63FF; font-weight: 700; cursor: pointer; }
+  .auth-demo { text-align: center; margin-top: 12px; font-size: 12px; color: #bbb; background: #F8F9FF; border-radius: 8px; padding: 8px; }
+
+  /* APP */
+  .app { display: none; }
+  header { background: #fff; border-bottom: 1px solid #E8EAF0; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .logo { font-size: 20px; font-weight: 800; color: #6C63FF; }
+  nav { display: flex; gap: 8px; align-items: center; }
+  .nav-btn { padding: 8px 14px; border-radius: 20px; border: none; background: transparent; cursor: pointer; font-weight: 500; font-size: 13px; color: #666; }
+  .nav-btn.active { background: #EEF0FF; color: #6C63FF; font-weight: 700; }
+  .logout-btn { padding: 8px 14px; border-radius: 20px; border: 1.5px solid #FFE0E6; background: transparent; cursor: pointer; font-weight: 600; font-size: 13px; color: #FF6584; }
+  main { max-width: 860px; margin: 0 auto; padding: 20px 16px; }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* FEED */
+  .feed-layout { display: flex; gap: 16px; align-items: flex-start; }
+  .sidebar { width: 200px; flex-shrink: 0; }
+  .side-card { background: #fff; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .feed { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+
+  /* CARDS */
+  .card { background: #fff; border-radius: 16px; padding: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; flex-shrink: 0; }
+  .big-avatar { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 22px; margin: 0 auto 10px; }
+  .post-header { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .post-author { font-weight: 700; font-size: 15px; }
+  .post-meta { color: #999; font-size: 12px; }
+  .post-content { line-height: 1.6; font-size: 15px; margin-bottom: 14px; }
+  .actions { display: flex; gap: 8px; border-top: 1px solid #F0F2F8; padding-top: 12px; }
+  .act-btn { background: #F5F6FA; border: none; border-radius: 20px; padding: 7px 14px; cursor: pointer; font-size: 13px; font-weight: 500; color: #555; }
+  .act-btn.liked { background: #FFF0F3; color: #FF4D6D; }
+
+  /* CREATE POST */
+  .create-row { display: flex; gap: 10px; align-items: flex-start; }
+  textarea { flex: 1; border: 1.5px solid #E8EAF0; border-radius: 12px; padding: 10px 14px; font-size: 15px; resize: none; outline: none; font-family: inherit; color: #1a1a2e; line-height: 1.5; }
+  textarea:focus { border-color: #6C63FF; }
+  .create-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+  .post-btn { background: #6C63FF; color: #fff; border: none; border-radius: 20px; padding: 10px 22px; font-weight: 700; font-size: 14px; cursor: pointer; }
+  .post-btn:disabled { opacity: 0.5; }
+
+  /* COMMENTS */
+  .comments-section { margin-top: 12px; border-top: 1px solid #F0F2F8; padding-top: 10px; }
+  .comment { padding: 5px 0; font-size: 13px; border-bottom: 1px solid #F8F9FC; }
+  .cmt-author { font-weight: 700; color: #6C63FF; }
+  .cmt-row { display: flex; gap: 8px; margin-top: 8px; }
+  .cmt-input { flex: 1; border: 1.5px solid #E8EAF0; border-radius: 20px; padding: 8px 14px; font-size: 13px; outline: none; font-family: inherit; }
+  .cmt-send { background: #6C63FF; color: #fff; border: none; border-radius: 20px; padding: 8px 14px; cursor: pointer; font-weight: 700; }
+
+  /* PROFILE */
+  .profile-banner { height: 90px; background: linear-gradient(135deg, #6C63FF, #FF6584); }
+  .profile-info { padding: 0 20px 20px; display: flex; gap: 16px; align-items: flex-end; margin-top: -28px; }
+  .profile-avatar { width: 68px; height: 68px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 26px; border: 4px solid #fff; flex-shrink: 0; }
+  .profile-stats { display: flex; gap: 16px; margin-top: 10px; }
+  .profile-stat { font-size: 14px; color: #555; }
+
+  /* NOTIFICATION */
+  .notif { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #6C63FF; color: #fff; padding: 10px 22px; border-radius: 24px; font-weight: 600; z-index: 999; box-shadow: 0 4px 20px rgba(108,99,255,0.4); white-space: nowrap; display: none; }
+
+  @media (max-width: 600px) {
+    .sidebar { display: none; }
+    .auth-card { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NOTIFICATION -->
+<div class="notif" id="notif"></div>
+
+<!-- LOGIN -->
+<div class="auth-page" id="loginPage">
+  <div class="auth-card">
+    <div class="auth-logo">⟁ KazConnect</div>
+    <h2 class="auth-title">Кіру</h2>
+    <p class="auth-sub">Аккаунтыңызға кіріңіз</p>
+    <div class="auth-error" id="loginError"></div>
+    <label class="auth-label">Email</label>
+    <input class="auth-input" type="email" id="loginEmail" placeholder="email@mail.com">
+    <label class="auth-label">Құпия сөз</label>
+    <input class="auth-input" type="password" id="loginPassword" placeholder="••••••••">
+    <button class="auth-btn" onclick="doLogin()">Кіру →</button>
+    <div class="auth-hint">Аккаунт жоқ па? <span class="auth-link" onclick="showRegister()">Тіркелу</span></div>
+    <div class="auth-demo">🔑 Демо: erasyl@mail.com / 1234</div>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<div class="auth-page" id="registerPage" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo">⟁ KazConnect</div>
+    <h2 class="auth-title">Тіркелу</h2>
+    <p class="auth-sub">Жаңа аккаунт жасаңыз</p>
+    <div class="auth-error" id="regError"></div>
+    <label class="auth-label">Аты-жөні</label>
+    <input class="auth-input" id="regName" placeholder="Erasyl Bekov">
+    <label class="auth-label">Username</label>
+    <input class="auth-input" id="regUsername" placeholder="erasyl_vt">
+    <label class="auth-label">Email</label>
+    <input class="auth-input" type="email" id="regEmail" placeholder="email@mail.com">
+    <label class="auth-label">Құпия сөз</label>
+    <input class="auth-input" type="password" id="regPw" placeholder="••••••••">
+    <label class="auth-label">Қайталаңыз</label>
+    <input class="auth-input" type="password" id="regPw2" placeholder="••••••••">
+    <button class="auth-btn" onclick="doRegister()">Тіркелу ✓</button>
+    <div class="auth-hint">Аккаунт бар ма? <span class="auth-link" onclick="showLogin()">Кіру</span></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <header>
+    <div class="logo">⟁ KazConnect</div>
+    <nav>
+      <button class="nav-btn active" id="btnFeed" onclick="showPage('feed')">🏠 Лента</button>
+      <button class="nav-btn" id="btnProfile" onclick="showPage('profile')">👤 Профиль</button>
+      <button class="logout-btn" onclick="doLogout()">Шығу</button>
+    </nav>
+  </header>
+  <main>
+    <!-- FEED PAGE -->
+    <div class="page active" id="feedPage">
+      <div class="feed-layout">
+        <aside class="sidebar">
+          <div class="side-card">
+            <div class="big-avatar" id="sideAvatar"></div>
+            <div style="font-weight:700;font-size:15px" id="sideName"></div>
+            <div style="color:#999;font-size:12px;margin-bottom:14px" id="sideUsername"></div>
+            <div style="display:flex;justify-content:center;gap:18px">
+              <div style="text-align:center"><div style="font-weight:700;font-size:18px;color:#6C63FF" id="sidePostCount">0</div><div style="font-size:11px;color:#999">Пост</div></div>
+              <div style="text-align:center"><div style="font-weight:700;font-size:18px;color:#6C63FF">128</div><div style="font-size:11px;color:#999">Дос</div></div>
+            </div>
+          </div>
+        </aside>
+        <div class="feed" id="feedContainer">
+          <!-- CREATE POST -->
+          <div class="card">
+            <div class="create-row">
+              <div class="avatar" id="createAvatar"></div>
+              <textarea id="postText" placeholder="Не болып жатыр? Бөлісіңіз..." rows="3" oninput="updateCharCount()"></textarea>
+            </div>
+            <div class="create-footer">
+              <span style="font-size:12px;color:#bbb" id="charCount">0 символ</span>
+              <button class="post-btn" id="postBtn" onclick="createPost()" disabled>Жариялау</button>
+            </div>
+          </div>
+          <!-- POSTS will be injected here -->
+          <div id="postsContainer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div class="page" id="profilePage" style="max-width:640px;margin:0 auto">
+      <div class="card" style="padding:0;overflow:hidden;margin-bottom:16px">
+        <div class="profile-banner"></div>
+        <div class="profile-info">
+          <div class="profile-avatar" id="profAvatar"></div>
+          <div style="flex:1;padding-top:32px">
+            <h2 style="font-size:20px;margin-bottom:2px" id="profName"></h2>
+            <div style="color:#999;font-size:13px;margin-bottom:6px" id="profUsername"></div>
+            <div style="color:#555;font-size:14px;margin-bottom:10px">KazConnect қолданушысы 👨‍💻</div>
+            <div class="profile-stats">
+              <div class="profile-stat"><strong id="profPostCount">0</strong> Пост</div>
+              <div class="profile-stat"><strong>128</strong> Дос</div>
+              <div class="profile-stat"><strong>256</strong> Ізбасар</div>
+            </div>
+            <button class="logout-btn" style="margin-top:12px" onclick="doLogout()">🚪 Шығу</button>
+          </div>
+        </div>
+      </div>
+      <h3 style="margin-bottom:12px;font-size:17px">Менің посттарым</h3>
+      <div id="myPostsContainer"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const COLORS = ["#6C63FF","#FF6584","#43B89C","#FF9800","#E91E63","#00BCD4"];
+
+let users = [
+  { name:"Erasyl", username:"erasyl_vt", email:"erasyl@mail.com", password:"1234", avatar:"E", color:"#6C63FF" }
+];
+
+let posts = [
+  { id:1, author:"Айгерім Бекова", username:"aigerim_b", avatar:"А", color:"#6C63FF", time:"2 сағат бұрын", content:"Бүгін Алматыда күн тамаша! ☀️ Парктен серуендеп қайттым, өте жақсы болды.", likes:24, liked:false, comments:[{id:1,author:"Данияр",text:"Рас айтасың, күн өте жақсы! 🌞"}], showCmt:false },
+  { id:2, author:"Данияр Сейткали", username:"daniyar_s", avatar:"Д", color:"#FF6584", time:"5 сағат бұрын", content:"Жаңа жоба бастадым! 💻 React-та әлеуметтік желі жасап жатырмын. Өте қызықты болып жатыр.", likes:47, liked:false, comments:[], showCmt:false },
+  { id:3, author:"Зарина Нурланова", username:"zarina_n", avatar:"З", color:"#43B89C", time:"1 күн бұрын", content:"Университетте жаңа семестр басталды! 📚 Барлығына табыс тілеймін, бәріміз бірге оқимыз! 💪", likes:89, liked:false, comments:[{id:1,author:"Айгерім",text:"Сізге де табыс! 🎓"}], showCmt:false },
+];
+
+let currentUser = null;
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+function showLogin() {
+  document.getElementById('registerPage').style.display = 'none';
+  document.getElementById('loginPage').style.display = 'flex';
+}
+function showRegister() {
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('registerPage').style.display = 'flex';
+}
+function showError(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function hideError(id) { document.getElementById(id).style.display = 'none'; }
+
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pw = document.getElementById('loginPassword').value;
+  const user = users.find(u => u.email === email && u.password === pw);
+  if (!user) { showError('loginError', 'Email немесе құпия сөз қате! ❌'); return; }
+  hideError('loginError');
+  loginSuccess(user);
+}
+
+function doRegister() {
+  const name = document.getElementById('regName').value.trim();
+  const uname = document.getElementById('regUsername').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const pw = document.getElementById('regPw').value;
+  const pw2 = document.getElementById('regPw2').value;
+  if (!name||!uname||!email||!pw) { showError('regError','Барлық өрістерді толтырыңыз! ⚠️'); return; }
+  if (pw !== pw2) { showError('regError','Құпия сөздер сәйкес келмейді! ❌'); return; }
+  if (users.find(u=>u.email===email)) { showError('regError','Бұл email тіркелген! ⚠️'); return; }
+  if (users.find(u=>u.username===uname)) { showError('regError','Бұл username алынған! ⚠️'); return; }
+  const nu = { name, username:uname, email, password:pw, avatar:name[0].toUpperCase(), color:COLORS[Math.floor(Math.random()*COLORS.length)] };
+  users.push(nu);
+  showNotif('Тіркелу сәтті! 🎉');
+  loginSuccess(nu);
+}
+
+function loginSuccess(user) {
+  currentUser = user;
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('registerPage').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  updateUserUI();
+  renderPosts();
+  showNotif('Қош келдіңіз, ' + user.name + '! 👋');
+}
+
+function doLogout() {
+  currentUser = null;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('loginPage').style.display = 'flex';
+}
+
+// ── UI HELPERS ────────────────────────────────────────────────────────────────
+function showNotif(msg) {
+  const el = document.getElementById('notif');
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 2500);
+}
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(name + 'Page').classList.add('active');
+  document.getElementById('btn' + name.charAt(0).toUpperCase() + name.slice(1)).classList.add('active');
+  if (name === 'profile') renderProfile();
+}
+
+function updateUserUI() {
+  const u = currentUser;
+  // Sidebar
+  document.getElementById('sideAvatar').textContent = u.avatar;
+  document.getElementById('sideAvatar').style.background = u.color;
+  document.getElementById('sideName').textContent = u.name;
+  document.getElementById('sideUsername').textContent = '@' + u.username;
+  // Create post avatar
+  document.getElementById('createAvatar').textContent = u.avatar;
+  document.getElementById('createAvatar').style.background = u.color;
+}
+
+function updateCharCount() {
+  const txt = document.getElementById('postText').value;
+  document.getElementById('charCount').textContent = txt.length + ' символ';
+  document.getElementById('postBtn').disabled = !txt.trim();
+}
+
+// ── POSTS ─────────────────────────────────────────────────────────────────────
+function renderPosts() {
+  const container = document.getElementById('postsContainer');
+  container.innerHTML = posts.map(p => renderPost(p)).join('');
+  updateSidePostCount();
+}
+
+function renderPost(p) {
+  const cmts = p.comments.map(c => `<div class="comment"><span class="cmt-author">${c.author}:</span> <span style="color:#444">${c.text}</span></div>`).join('');
+  return `
+  <div class="card" id="post-${p.id}">
+    <div class="post-header">
+      <div class="avatar" style="background:${p.color}">${p.avatar}</div>
+      <div>
+        <div class="post-author">${p.author}</div>
+        <div class="post-meta">@${p.username} · ${p.time}</div>
+      </div>
+    </div>
+    <p class="post-content">${p.content}</p>
+    <div class="actions">
+      <button class="act-btn ${p.liked?'liked':''}" onclick="toggleLike(${p.id})">${p.liked?'❤️':'🤍'} ${p.likes}</button>
+      <button class="act-btn" onclick="toggleCmt(${p.id})">💬 ${p.comments.length}</button>
+      <button class="act-btn">🔗 Бөлісу</button>
+    </div>
+    <div class="comments-section" id="cmt-${p.id}" style="display:${p.showCmt?'block':'none'}">
+      <div id="cmtList-${p.id}">${cmts}</div>
+      <div class="cmt-row">
+        <input class="cmt-input" id="cmtInput-${p.id}" placeholder="Пікір жазыңыз..." onkeydown="if(event.key==='Enter')addComment(${p.id})">
+        <button class="cmt-send" onclick="addComment(${p.id})">→</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggleLike(id) {
+  const p = posts.find(x=>x.id===id);
+  p.liked = !p.liked;
+  p.likes += p.liked ? 1 : -1;
+  renderPosts();
+}
+
+function toggleCmt(id) {
+  const p = posts.find(x=>x.id===id);
+  p.showCmt = !p.showCmt;
+  renderPosts();
+}
+
+function addComment(id) {
+  const inp = document.getElementById('cmtInput-' + id);
+  const text = inp.value.trim();
+  if (!text) return;
+  const p = posts.find(x=>x.id===id);
+  p.comments.push({ id: Date.now(), author: currentUser.name, text });
+  p.showCmt = true;
+  renderPosts();
+}
+
+function createPost() {
+  const txt = document.getElementById('postText').value.trim();
+  if (!txt) return;
+  posts.unshift({
+    id: Date.now(), author: currentUser.name, username: currentUser.username,
+    avatar: currentUser.avatar, color: currentUser.color,
+    time: 'Жаңа ғана', content: txt, likes: 0, liked: false, comments: [], showCmt: false
+  });
+  document.getElementById('postText').value = '';
+  document.getElementById('charCount').textContent = '0 символ';
+  document.getElementById('postBtn').disabled = true;
+  renderPosts();
+  showNotif('Пост жарияланды! ✅');
+}
+
+function updateSidePostCount() {
+  const count = posts.filter(p=>p.username===currentUser.username).length;
+  document.getElementById('sidePostCount').textContent = count;
+}
+
+// ── PROFILE ───────────────────────────────────────────────────────────────────
+function renderProfile() {
+  const u = currentUser;
+  document.getElementById('profAvatar').textContent = u.avatar;
+  document.getElementById('profAvatar').style.background = u.color;
+  document.getElementById('profName').textContent = u.name;
+  document.getElementById('profUsername').textContent = '@' + u.username;
+  const myPosts = posts.filter(p=>p.username===u.username);
+  document.getElementById('profPostCount').textContent = myPosts.length;
+  const container = document.getElementById('myPostsContainer');
+  if (myPosts.length === 0) {
+    container.innerHTML = '<div class="card" style="text-align:center;color:#999;padding:32px">Әлі пост жоқ ✍️</div>';
+  } else {
+    container.innerHTML = myPosts.map(p=>`
+      <div class="card" style="margin-bottom:12px">
+        <p class="post-content">${p.content}</p>
+        <div class="post-meta">${p.time} · ${p.likes} лайк · ${p.comments.length} пікір</div>
+      </div>`).join('');
+  }
+}
+
+// Enter key support
+document.getElementById('loginPassword').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+document.getElementById('regPw2').addEventListener('keydown', e => { if(e.key==='Enter') doRegister(); });
+</script>
+</body>
+</html>
