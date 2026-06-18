@@ -7,8 +7,6 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #F0F2F8; font-family: 'Segoe UI', system-ui, sans-serif; color: #1a1a2e; }
-
-  /* AUTH */
   .auth-page { min-height: 100vh; background: linear-gradient(135deg, #6C63FF, #FF6584); display: flex; align-items: center; justify-content: center; padding: 16px; }
   .auth-card { background: #fff; border-radius: 24px; padding: 36px 32px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(108,99,255,0.25); }
   .auth-logo { font-size: 22px; font-weight: 800; color: #6C63FF; text-align: center; margin-bottom: 20px; }
@@ -22,8 +20,6 @@
   .auth-hint { text-align: center; margin-top: 16px; font-size: 14px; color: #888; }
   .auth-link { color: #6C63FF; font-weight: 700; cursor: pointer; }
   .auth-demo { text-align: center; margin-top: 12px; font-size: 12px; color: #bbb; background: #F8F9FF; border-radius: 8px; padding: 8px; }
-
-  /* APP */
   .app { display: none; }
   header { background: #fff; border-bottom: 1px solid #E8EAF0; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
   .logo { font-size: 20px; font-weight: 800; color: #6C63FF; }
@@ -32,18 +28,12 @@
   .nav-btn.active { background: #EEF0FF; color: #6C63FF; font-weight: 700; }
   .logout-btn { padding: 8px 14px; border-radius: 20px; border: 1.5px solid #FFE0E6; background: transparent; cursor: pointer; font-weight: 600; font-size: 13px; color: #FF6584; }
   main { max-width: 860px; margin: 0 auto; padding: 20px 16px; }
-
-  /* PAGES */
   .page { display: none; }
   .page.active { display: block; }
-
-  /* FEED */
   .feed-layout { display: flex; gap: 16px; align-items: flex-start; }
   .sidebar { width: 200px; flex-shrink: 0; }
   .side-card { background: #fff; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
   .feed { flex: 1; display: flex; flex-direction: column; gap: 14px; }
-
-  /* CARDS */
   .card { background: #fff; border-radius: 16px; padding: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
   .avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; flex-shrink: 0; }
   .big-avatar { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 22px; margin: 0 auto 10px; }
@@ -54,34 +44,23 @@
   .actions { display: flex; gap: 8px; border-top: 1px solid #F0F2F8; padding-top: 12px; }
   .act-btn { background: #F5F6FA; border: none; border-radius: 20px; padding: 7px 14px; cursor: pointer; font-size: 13px; font-weight: 500; color: #555; }
   .act-btn.liked { background: #FFF0F3; color: #FF4D6D; }
-
-  /* CREATE POST */
   .create-row { display: flex; gap: 10px; align-items: flex-start; }
   textarea { flex: 1; border: 1.5px solid #E8EAF0; border-radius: 12px; padding: 10px 14px; font-size: 15px; resize: none; outline: none; font-family: inherit; color: #1a1a2e; line-height: 1.5; }
   textarea:focus { border-color: #6C63FF; }
   .create-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
   .post-btn { background: #6C63FF; color: #fff; border: none; border-radius: 20px; padding: 10px 22px; font-weight: 700; font-size: 14px; cursor: pointer; }
   .post-btn:disabled { opacity: 0.5; }
-
-  /* COMMENTS */
   .comments-section { margin-top: 12px; border-top: 1px solid #F0F2F8; padding-top: 10px; }
   .comment { padding: 5px 0; font-size: 13px; border-bottom: 1px solid #F8F9FC; }
   .cmt-author { font-weight: 700; color: #6C63FF; }
   .cmt-row { display: flex; gap: 8px; margin-top: 8px; }
   .cmt-input { flex: 1; border: 1.5px solid #E8EAF0; border-radius: 20px; padding: 8px 14px; font-size: 13px; outline: none; font-family: inherit; }
   .cmt-send { background: #6C63FF; color: #fff; border: none; border-radius: 20px; padding: 8px 14px; cursor: pointer; font-weight: 700; }
-
-  /* PROFILE */
   .profile-banner { height: 90px; background: linear-gradient(135deg, #6C63FF, #FF6584); }
   .profile-info { padding: 0 20px 20px; display: flex; gap: 16px; align-items: flex-end; margin-top: -28px; }
   .profile-avatar { width: 68px; height: 68px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 26px; border: 4px solid #fff; flex-shrink: 0; }
   .profile-stats { display: flex; gap: 16px; margin-top: 10px; }
   .profile-stat { font-size: 14px; color: #555; }
-
-  /* NOTIFICATION */
-  .notif { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #6C63FF; color: #fff; padding: 10px 22px; border-radius: 24px; font-weight: 600; z-index: 999; box-shadow: 0 4px 20px rgba(108,99,255,0.4); white-space: nowrap; display: none; }
-
-  /* ADMIN */
   .admin-header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; padding: 16px 24px; border-radius: 16px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
   .admin-badge { background: #FF6584; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-left: 8px; }
   .admin-card { background: #fff; border-radius: 16px; padding: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 12px; border-left: 4px solid #6C63FF; }
@@ -90,17 +69,13 @@
   .stat-box { background: #fff; border-radius: 14px; padding: 16px 20px; flex: 1; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
   .stat-box-num { font-size: 28px; font-weight: 800; color: #6C63FF; }
   .stat-box-label { font-size: 12px; color: #999; margin-top: 4px; }
-
-  @media (max-width: 600px) {
-    .sidebar { display: none; }
-    .auth-card { padding: 28px 20px; }
-    .admin-stats { flex-wrap: wrap; }
-  }
+  .notif { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #6C63FF; color: #fff; padding: 10px 22px; border-radius: 24px; font-weight: 600; z-index: 999; box-shadow: 0 4px 20px rgba(108,99,255,0.4); white-space: nowrap; display: none; }
+  .loading { text-align: center; padding: 40px; color: #999; font-size: 15px; }
+  @media (max-width: 600px) { .sidebar { display: none; } .auth-card { padding: 28px 20px; } .admin-stats { flex-wrap: wrap; } }
 </style>
 </head>
 <body>
 
-<!-- NOTIFICATION -->
 <div class="notif" id="notif"></div>
 
 <!-- LOGIN -->
@@ -116,7 +91,7 @@
     <input class="auth-input" type="password" id="loginPassword" placeholder="••••••••">
     <button class="auth-btn" onclick="doLogin()">Кіру →</button>
     <div class="auth-hint">Аккаунт жоқ па? <span class="auth-link" onclick="showRegister()">Тіркелу</span></div>
-    <div class="auth-demo">🔑 Демо: erasyl@mail.com / 1234<br>🛡️ Админ: admin@kazconnect.kz / admin123</div>
+    <div class="auth-demo">🛡️ Админ: admin@kazconnect.kz / admin123</div>
   </div>
 </div>
 
@@ -154,7 +129,7 @@
     </nav>
   </header>
   <main>
-    <!-- FEED PAGE -->
+    <!-- FEED -->
     <div class="page active" id="feedPage">
       <div class="feed-layout">
         <aside class="sidebar">
@@ -164,12 +139,11 @@
             <div style="color:#999;font-size:12px;margin-bottom:14px" id="sideUsername"></div>
             <div style="display:flex;justify-content:center;gap:18px">
               <div style="text-align:center"><div style="font-weight:700;font-size:18px;color:#6C63FF" id="sidePostCount">0</div><div style="font-size:11px;color:#999">Пост</div></div>
-              <div style="text-align:center"><div style="font-weight:700;font-size:18px;color:#6C63FF">128</div><div style="font-size:11px;color:#999">Дос</div></div>
+              <div style="text-align:center"><div style="font-weight:700;font-size:18px;color:#6C63FF" id="sideFollowers">0</div><div style="font-size:11px;color:#999">Дос</div></div>
             </div>
           </div>
         </aside>
-        <div class="feed" id="feedContainer">
-          <!-- CREATE POST -->
+        <div class="feed">
           <div class="card">
             <div class="create-row">
               <div class="avatar" id="createAvatar"></div>
@@ -180,13 +154,12 @@
               <button class="post-btn" id="postBtn" onclick="createPost()" disabled>Жариялау</button>
             </div>
           </div>
-          <!-- POSTS will be injected here -->
-          <div id="postsContainer"></div>
+          <div id="postsContainer"><div class="loading">Жүктелуде... ⏳</div></div>
         </div>
       </div>
     </div>
 
-    <!-- PROFILE PAGE -->
+    <!-- PROFILE -->
     <div class="page" id="profilePage" style="max-width:640px;margin:0 auto">
       <div class="card" style="padding:0;overflow:hidden;margin-bottom:16px">
         <div class="profile-banner"></div>
@@ -199,7 +172,6 @@
             <div class="profile-stats">
               <div class="profile-stat"><strong id="profPostCount">0</strong> Пост</div>
               <div class="profile-stat"><strong>128</strong> Дос</div>
-              <div class="profile-stat"><strong>256</strong> Ізбасар</div>
             </div>
             <button class="logout-btn" style="margin-top:12px" onclick="doLogout()">🚪 Шығу</button>
           </div>
@@ -208,13 +180,11 @@
       <h3 style="margin-bottom:12px;font-size:17px">Менің посттарым</h3>
       <div id="myPostsContainer"></div>
     </div>
-    <!-- ADMIN PAGE -->
+
+    <!-- ADMIN -->
     <div class="page" id="adminPage">
       <div class="admin-header">
-        <div>
-          <span style="font-size:18px;font-weight:800">🛡️ Админ панель</span>
-          <span class="admin-badge">ADMIN</span>
-        </div>
+        <div><span style="font-size:18px;font-weight:800">🛡️ Админ панель</span><span class="admin-badge">ADMIN</span></div>
         <div style="font-size:13px;opacity:0.7" id="adminWelcome"></div>
       </div>
       <div class="admin-stats">
@@ -228,256 +198,268 @@
   </main>
 </div>
 
-<script>
-// ── DATA ──────────────────────────────────────────────────────────────────────
+<!-- FIREBASE SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, onSnapshot, orderBy, query, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD297gaHjo2Zy2xkzFFCNFDpsMFaZB7des",
+  authDomain: "kazconnect-cb2e9.firebaseapp.com",
+  projectId: "kazconnect-cb2e9",
+  storageBucket: "kazconnect-cb2e9.firebasestorage.app",
+  messagingSenderId: "733326224041",
+  appId: "1:733326224041:web:c9053fcc0f458a00cd9583",
+  measurementId: "G-ZSNBX2QFYV"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
 const COLORS = ["#6C63FF","#FF6584","#43B89C","#FF9800","#E91E63","#00BCD4"];
-
-let users = [
-  { name:"Erasyl", username:"erasyl_vt", email:"erasyl@mail.com", password:"1234", avatar:"E", color:"#6C63FF" },
-  { name:"Admin", username:"admin", email:"admin@kazconnect.kz", password:"admin123", avatar:"A", color:"#FF4D6D", isAdmin: true },
-];
-
-let posts = [
-  { id:1, author:"Айгерім Бекова", username:"aigerim_b", avatar:"А", color:"#6C63FF", time:"2 сағат бұрын", content:"Бүгін Алматыда күн тамаша! ☀️ Парктен серуендеп қайттым, өте жақсы болды.", likes:24, liked:false, comments:[{id:1,author:"Данияр",text:"Рас айтасың, күн өте жақсы! 🌞"}], showCmt:false },
-  { id:2, author:"Данияр Сейткали", username:"daniyar_s", avatar:"Д", color:"#FF6584", time:"5 сағат бұрын", content:"Жаңа жоба бастадым! 💻 React-та әлеуметтік желі жасап жатырмын. Өте қызықты болып жатыр.", likes:47, liked:false, comments:[], showCmt:false },
-  { id:3, author:"Зарина Нурланова", username:"zarina_n", avatar:"З", color:"#43B89C", time:"1 күн бұрын", content:"Университетте жаңа семестр басталды! 📚 Барлығына табыс тілеймін, бәріміз бірге оқимыз! 💪", likes:89, liked:false, comments:[{id:1,author:"Айгерім",text:"Сізге де табыс! 🎓"}], showCmt:false },
-];
-
+const ADMIN_EMAIL = "admin@kazconnect.kz";
 let currentUser = null;
+let unsubPosts = null;
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
-function showLogin() {
-  document.getElementById('registerPage').style.display = 'none';
-  document.getElementById('loginPage').style.display = 'flex';
-}
-function showRegister() {
-  document.getElementById('loginPage').style.display = 'none';
-  document.getElementById('registerPage').style.display = 'flex';
-}
-function showError(id, msg) {
-  const el = document.getElementById(id);
-  el.textContent = msg;
-  el.style.display = 'block';
-}
-function hideError(id) { document.getElementById(id).style.display = 'none'; }
+window.showLogin = () => { document.getElementById('registerPage').style.display='none'; document.getElementById('loginPage').style.display='flex'; };
+window.showRegister = () => { document.getElementById('loginPage').style.display='none'; document.getElementById('registerPage').style.display='flex'; };
 
-function doLogin() {
+function showErr(id, msg) { const e=document.getElementById(id); e.textContent=msg; e.style.display='block'; }
+function hideErr(id) { document.getElementById(id).style.display='none'; }
+
+window.doLogin = async () => {
   const email = document.getElementById('loginEmail').value.trim();
   const pw = document.getElementById('loginPassword').value;
-  const user = users.find(u => u.email === email && u.password === pw);
-  if (!user) { showError('loginError', 'Email немесе құпия сөз қате! ❌'); return; }
-  hideError('loginError');
-  loginSuccess(user);
-}
+  if (!email||!pw) { showErr('loginError','Өрістерді толтырыңыз! ⚠️'); return; }
+  try {
+    await signInWithEmailAndPassword(auth, email, pw);
+    hideErr('loginError');
+  } catch(e) {
+    showErr('loginError','Email немесе құпия сөз қате! ❌');
+  }
+};
 
-function doRegister() {
+window.doRegister = async () => {
   const name = document.getElementById('regName').value.trim();
   const uname = document.getElementById('regUsername').value.trim();
   const email = document.getElementById('regEmail').value.trim();
   const pw = document.getElementById('regPw').value;
   const pw2 = document.getElementById('regPw2').value;
-  if (!name||!uname||!email||!pw) { showError('regError','Барлық өрістерді толтырыңыз! ⚠️'); return; }
-  if (pw !== pw2) { showError('regError','Құпия сөздер сәйкес келмейді! ❌'); return; }
-  if (users.find(u=>u.email===email)) { showError('regError','Бұл email тіркелген! ⚠️'); return; }
-  if (users.find(u=>u.username===uname)) { showError('regError','Бұл username алынған! ⚠️'); return; }
-  const nu = { name, username:uname, email, password:pw, avatar:name[0].toUpperCase(), color:COLORS[Math.floor(Math.random()*COLORS.length)] };
-  users.push(nu);
-  showNotif('Тіркелу сәтті! 🎉');
-  loginSuccess(nu);
-}
+  if (!name||!uname||!email||!pw) { showErr('regError','Барлық өрістерді толтырыңыз! ⚠️'); return; }
+  if (pw!==pw2) { showErr('regError','Құпия сөздер сәйкес келмейді! ❌'); return; }
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pw);
+    const color = COLORS[Math.floor(Math.random()*COLORS.length)];
+    await updateProfile(cred.user, { displayName: name });
+    // Save extra user info to Firestore
+    await addDoc(collection(db,'users'), {
+      uid: cred.user.uid, name, username: uname, email, color, avatar: name[0].toUpperCase(), createdAt: Date.now()
+    });
+    hideErr('regError');
+  } catch(e) {
+    showErr('regError', e.code==='auth/email-already-in-use' ? 'Бұл email тіркелген! ⚠️' : 'Қате болды, қайталаңыз! ❌');
+  }
+};
 
-function loginSuccess(user) {
-  currentUser = user;
-  document.getElementById('loginPage').style.display = 'none';
-  document.getElementById('registerPage').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  // Show admin button if admin
-  document.getElementById('btnAdmin').style.display = user.isAdmin ? 'inline-block' : 'none';
-  updateUserUI();
-  renderPosts();
-  showNotif('Қош келдіңіз, ' + user.name + '! 👋');
-}
+window.doLogout = async () => {
+  if (unsubPosts) unsubPosts();
+  await signOut(auth);
+};
 
-function doLogout() {
-  currentUser = null;
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('loginPage').style.display = 'flex';
-}
+// ── AUTH STATE ────────────────────────────────────────────────────────────────
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    // Get extra info from Firestore
+    const snap = await getDocs(collection(db,'users'));
+    let userData = null;
+    snap.forEach(d => { if(d.data().uid===user.uid) userData=d.data(); });
+    // Admin account
+    if (user.email===ADMIN_EMAIL && !userData) {
+      userData = { uid: user.uid, name:'Admin', username:'admin', email: ADMIN_EMAIL, color:'#FF4D6D', avatar:'A' };
+    }
+    if (!userData) userData = { uid: user.uid, name: user.displayName||'User', username: user.email.split('@')[0], email: user.email, color: '#6C63FF', avatar: (user.displayName||'U')[0].toUpperCase() };
+    currentUser = { ...userData, isAdmin: user.email===ADMIN_EMAIL };
+    document.getElementById('loginPage').style.display='none';
+    document.getElementById('registerPage').style.display='none';
+    document.getElementById('app').style.display='block';
+    document.getElementById('btnAdmin').style.display = currentUser.isAdmin ? 'inline-block' : 'none';
+    updateUserUI();
+    listenPosts();
+    showNotif('Қош келдіңіз, ' + currentUser.name + '! 👋');
+  } else {
+    currentUser = null;
+    document.getElementById('app').style.display='none';
+    document.getElementById('loginPage').style.display='flex';
+  }
+});
 
-// ── UI HELPERS ────────────────────────────────────────────────────────────────
+// ── UI ────────────────────────────────────────────────────────────────────────
 function showNotif(msg) {
-  const el = document.getElementById('notif');
-  el.textContent = msg;
-  el.style.display = 'block';
-  setTimeout(() => el.style.display = 'none', 2500);
+  const el=document.getElementById('notif'); el.textContent=msg; el.style.display='block';
+  setTimeout(()=>el.style.display='none',2500);
 }
+window.showNotif = showNotif;
 
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(name + 'Page').classList.add('active');
-  document.getElementById('btn' + name.charAt(0).toUpperCase() + name.slice(1)).classList.add('active');
-  if (name === 'profile') renderProfile();
-  if (name === 'admin') renderAdmin();
-}
+window.showPage = (name) => {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(name+'Page').classList.add('active');
+  document.getElementById('btn'+name.charAt(0).toUpperCase()+name.slice(1)).classList.add('active');
+  if (name==='profile') renderProfile();
+  if (name==='admin') renderAdmin();
+};
 
 function updateUserUI() {
   const u = currentUser;
-  // Sidebar
-  document.getElementById('sideAvatar').textContent = u.avatar;
-  document.getElementById('sideAvatar').style.background = u.color;
-  document.getElementById('sideName').textContent = u.name;
-  document.getElementById('sideUsername').textContent = '@' + u.username;
-  // Create post avatar
-  document.getElementById('createAvatar').textContent = u.avatar;
-  document.getElementById('createAvatar').style.background = u.color;
+  document.getElementById('sideAvatar').textContent=u.avatar; document.getElementById('sideAvatar').style.background=u.color;
+  document.getElementById('sideName').textContent=u.name; document.getElementById('sideUsername').textContent='@'+u.username;
+  document.getElementById('createAvatar').textContent=u.avatar; document.getElementById('createAvatar').style.background=u.color;
 }
 
-function updateCharCount() {
-  const txt = document.getElementById('postText').value;
-  document.getElementById('charCount').textContent = txt.length + ' символ';
-  document.getElementById('postBtn').disabled = !txt.trim();
-}
+window.updateCharCount = () => {
+  const txt=document.getElementById('postText').value;
+  document.getElementById('charCount').textContent=txt.length+' символ';
+  document.getElementById('postBtn').disabled=!txt.trim();
+};
 
-// ── POSTS ─────────────────────────────────────────────────────────────────────
-function renderPosts() {
-  const container = document.getElementById('postsContainer');
-  container.innerHTML = posts.map(p => renderPost(p)).join('');
-  updateSidePostCount();
-}
-
-function renderPost(p) {
-  const cmts = p.comments.map(c => `<div class="comment"><span class="cmt-author">${c.author}:</span> <span style="color:#444">${c.text}</span></div>`).join('');
-  return `
-  <div class="card" id="post-${p.id}">
-    <div class="post-header">
-      <div class="avatar" style="background:${p.color}">${p.avatar}</div>
-      <div>
-        <div class="post-author">${p.author}</div>
-        <div class="post-meta">@${p.username} · ${p.time}</div>
-      </div>
-    </div>
-    <p class="post-content">${p.content}</p>
-    <div class="actions">
-      <button class="act-btn ${p.liked?'liked':''}" onclick="toggleLike(${p.id})">${p.liked?'❤️':'🤍'} ${p.likes}</button>
-      <button class="act-btn" onclick="toggleCmt(${p.id})">💬 ${p.comments.length}</button>
-      <button class="act-btn">🔗 Бөлісу</button>
-    </div>
-    <div class="comments-section" id="cmt-${p.id}" style="display:${p.showCmt?'block':'none'}">
-      <div id="cmtList-${p.id}">${cmts}</div>
-      <div class="cmt-row">
-        <input class="cmt-input" id="cmtInput-${p.id}" placeholder="Пікір жазыңыз..." onkeydown="if(event.key==='Enter')addComment(${p.id})">
-        <button class="cmt-send" onclick="addComment(${p.id})">→</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-function toggleLike(id) {
-  const p = posts.find(x=>x.id===id);
-  p.liked = !p.liked;
-  p.likes += p.liked ? 1 : -1;
-  renderPosts();
-}
-
-function toggleCmt(id) {
-  const p = posts.find(x=>x.id===id);
-  p.showCmt = !p.showCmt;
-  renderPosts();
-}
-
-function addComment(id) {
-  const inp = document.getElementById('cmtInput-' + id);
-  const text = inp.value.trim();
-  if (!text) return;
-  const p = posts.find(x=>x.id===id);
-  p.comments.push({ id: Date.now(), author: currentUser.name, text });
-  p.showCmt = true;
-  renderPosts();
-}
-
-function createPost() {
-  const txt = document.getElementById('postText').value.trim();
-  if (!txt) return;
-  posts.unshift({
-    id: Date.now(), author: currentUser.name, username: currentUser.username,
-    avatar: currentUser.avatar, color: currentUser.color,
-    time: 'Жаңа ғана', content: txt, likes: 0, liked: false, comments: [], showCmt: false
+// ── POSTS (REALTIME) ──────────────────────────────────────────────────────────
+function listenPosts() {
+  const q = query(collection(db,'posts'), orderBy('createdAt','desc'));
+  unsubPosts = onSnapshot(q, (snap) => {
+    const posts = [];
+    snap.forEach(d => posts.push({id:d.id,...d.data()}));
+    renderPosts(posts);
+    updateSidePostCount(posts);
   });
-  document.getElementById('postText').value = '';
-  document.getElementById('charCount').textContent = '0 символ';
-  document.getElementById('postBtn').disabled = true;
-  renderPosts();
-  showNotif('Пост жарияланды! ✅');
 }
 
-function updateSidePostCount() {
-  const count = posts.filter(p=>p.username===currentUser.username).length;
-  document.getElementById('sidePostCount').textContent = count;
+function renderPosts(posts) {
+  const container = document.getElementById('postsContainer');
+  if (posts.length===0) { container.innerHTML='<div class="loading">Әлі пост жоқ. Бірінші болыңыз! ✍️</div>'; return; }
+  container.innerHTML = posts.map(p => {
+    const liked = p.likedBy && p.likedBy.includes(currentUser.uid);
+    const cmts = (p.comments||[]).map(c=>`<div class="comment"><span class="cmt-author">${c.author}:</span> <span style="color:#444">${c.text}</span></div>`).join('');
+    return `
+    <div class="card" id="post-${p.id}">
+      <div class="post-header">
+        <div class="avatar" style="background:${p.color}">${p.avatar}</div>
+        <div><div class="post-author">${p.author}</div><div class="post-meta">@${p.username} · ${p.time}</div></div>
+      </div>
+      <p class="post-content">${p.content}</p>
+      <div class="actions">
+        <button class="act-btn ${liked?'liked':''}" onclick="toggleLike('${p.id}',${liked})">${liked?'❤️':'🤍'} ${(p.likedBy||[]).length}</button>
+        <button class="act-btn" onclick="toggleCmt('${p.id}')">💬 ${(p.comments||[]).length}</button>
+        <button class="act-btn">🔗 Бөлісу</button>
+      </div>
+      <div class="comments-section" id="cmt-${p.id}" style="display:none">
+        <div>${cmts}</div>
+        <div class="cmt-row">
+          <input class="cmt-input" id="cmtInput-${p.id}" placeholder="Пікір жазыңыз..." onkeydown="if(event.key==='Enter')addComment('${p.id}')">
+          <button class="cmt-send" onclick="addComment('${p.id}')">→</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
+
+function updateSidePostCount(posts) {
+  const count = posts.filter(p=>p.uid===currentUser.uid).length;
+  document.getElementById('sidePostCount').textContent=count;
+}
+
+window.toggleLike = async (postId, isLiked) => {
+  const ref = doc(db,'posts',postId);
+  if (isLiked) {
+    await updateDoc(ref, { likedBy: arrayRemove(currentUser.uid) });
+  } else {
+    await updateDoc(ref, { likedBy: arrayUnion(currentUser.uid) });
+  }
+};
+
+window.toggleCmt = (postId) => {
+  const el=document.getElementById('cmt-'+postId);
+  el.style.display = el.style.display==='none' ? 'block' : 'none';
+};
+
+window.addComment = async (postId) => {
+  const inp=document.getElementById('cmtInput-'+postId);
+  const text=inp.value.trim(); if(!text)return;
+  const ref=doc(db,'posts',postId);
+  await updateDoc(ref, { comments: arrayUnion({ id:Date.now(), author:currentUser.name, text }) });
+  inp.value='';
+};
+
+window.createPost = async () => {
+  const txt=document.getElementById('postText').value.trim(); if(!txt)return;
+  await addDoc(collection(db,'posts'), {
+    uid: currentUser.uid, author:currentUser.name, username:currentUser.username,
+    avatar:currentUser.avatar, color:currentUser.color,
+    time: new Date().toLocaleString('kk-KZ',{hour:'2-digit',minute:'2-digit'}),
+    content:txt, likedBy:[], comments:[], createdAt: Date.now()
+  });
+  document.getElementById('postText').value='';
+  document.getElementById('charCount').textContent='0 символ';
+  document.getElementById('postBtn').disabled=true;
+  showNotif('Пост жарияланды! ✅');
+};
 
 // ── PROFILE ───────────────────────────────────────────────────────────────────
-function renderProfile() {
-  const u = currentUser;
-  document.getElementById('profAvatar').textContent = u.avatar;
-  document.getElementById('profAvatar').style.background = u.color;
-  document.getElementById('profName').textContent = u.name;
-  document.getElementById('profUsername').textContent = '@' + u.username;
-  const myPosts = posts.filter(p=>p.username===u.username);
-  document.getElementById('profPostCount').textContent = myPosts.length;
-  const container = document.getElementById('myPostsContainer');
-  if (myPosts.length === 0) {
-    container.innerHTML = '<div class="card" style="text-align:center;color:#999;padding:32px">Әлі пост жоқ ✍️</div>';
-  } else {
-    container.innerHTML = myPosts.map(p=>`
-      <div class="card" style="margin-bottom:12px">
-        <p class="post-content">${p.content}</p>
-        <div class="post-meta">${p.time} · ${p.likes} лайк · ${p.comments.length} пікір</div>
-      </div>`).join('');
-  }
+async function renderProfile() {
+  const u=currentUser;
+  document.getElementById('profAvatar').textContent=u.avatar; document.getElementById('profAvatar').style.background=u.color;
+  document.getElementById('profName').textContent=u.name; document.getElementById('profUsername').textContent='@'+u.username;
+  const snap=await getDocs(query(collection(db,'posts'),orderBy('createdAt','desc')));
+  const myPosts=[]; snap.forEach(d=>{const data=d.data(); if(data.uid===u.uid) myPosts.push({id:d.id,...data});});
+  document.getElementById('profPostCount').textContent=myPosts.length;
+  const container=document.getElementById('myPostsContainer');
+  if(myPosts.length===0){container.innerHTML='<div class="card" style="text-align:center;color:#999;padding:32px">Әлі пост жоқ ✍️</div>';return;}
+  container.innerHTML=myPosts.map(p=>`
+    <div class="card" style="margin-bottom:12px">
+      <p class="post-content">${p.content}</p>
+      <div class="post-meta">${p.time} · ${(p.likedBy||[]).length} лайк · ${(p.comments||[]).length} пікір</div>
+    </div>`).join('');
 }
 
 // ── ADMIN ─────────────────────────────────────────────────────────────────────
-function renderAdmin() {
-  document.getElementById('adminWelcome').textContent = currentUser.name + ' кірді';
-  document.getElementById('statPosts').textContent = posts.length;
-  document.getElementById('statUsers').textContent = users.length;
-  document.getElementById('statLikes').textContent = posts.reduce((s,p)=>s+p.likes,0);
-  const container = document.getElementById('adminPostsContainer');
-  if (posts.length === 0) {
-    container.innerHTML = '<div class="card" style="text-align:center;color:#999;padding:32px">Пост жоқ</div>';
-    return;
-  }
-  container.innerHTML = posts.map(p => `
-    <div class="admin-card" id="adminPost-${p.id}">
+async function renderAdmin() {
+  document.getElementById('adminWelcome').textContent=currentUser.name+' кірді';
+  const postsSnap=await getDocs(collection(db,'posts'));
+  const usersSnap=await getDocs(collection(db,'users'));
+  const allPosts=[]; postsSnap.forEach(d=>allPosts.push({id:d.id,...d.data()}));
+  document.getElementById('statPosts').textContent=allPosts.length;
+  document.getElementById('statUsers').textContent=usersSnap.size+1;
+  document.getElementById('statLikes').textContent=allPosts.reduce((s,p)=>s+(p.likedBy||[]).length,0);
+  const container=document.getElementById('adminPostsContainer');
+  if(allPosts.length===0){container.innerHTML='<div class="card" style="text-align:center;color:#999;padding:32px">Пост жоқ</div>';return;}
+  container.innerHTML=allPosts.map(p=>`
+    <div class="admin-card">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
         <div style="flex:1">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
             <div style="width:32px;height:32px;border-radius:50%;background:${p.color};display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px">${p.avatar}</div>
-            <div>
-              <span style="font-weight:700;font-size:14px">${p.author}</span>
-              <span style="color:#999;font-size:12px;margin-left:6px">@${p.username} · ${p.time}</span>
-            </div>
+            <div><span style="font-weight:700;font-size:14px">${p.author}</span><span style="color:#999;font-size:12px;margin-left:6px">@${p.username} · ${p.time}</span></div>
           </div>
           <p style="font-size:14px;line-height:1.5;color:#333;margin-bottom:8px">${p.content}</p>
-          <div style="font-size:12px;color:#999">❤️ ${p.likes} лайк · 💬 ${p.comments.length} пікір</div>
+          <div style="font-size:12px;color:#999">❤️ ${(p.likedBy||[]).length} лайк · 💬 ${(p.comments||[]).length} пікір</div>
         </div>
-        <button class="delete-btn" onclick="deletePost(${p.id})">🗑️ Өшіру</button>
+        <button class="delete-btn" onclick="deletePost('${p.id}')">🗑️ Өшіру</button>
       </div>
     </div>`).join('');
 }
 
-function deletePost(id) {
-  if (!confirm('Постты өшіруге сенімдісіз бе?')) return;
-  posts = posts.filter(p => p.id !== id);
-  renderAdmin();
-  renderPosts();
+window.deletePost = async (postId) => {
+  if(!confirm('Постты өшіруге сенімдісіз бе?')) return;
+  await deleteDoc(doc(db,'posts',postId));
   showNotif('Пост өшірілді! 🗑️');
-}
+  renderAdmin();
+};
 
-// Enter key support
-document.getElementById('loginPassword').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-document.getElementById('regPw2').addEventListener('keydown', e => { if(e.key==='Enter') doRegister(); });
+// Enter support
+document.getElementById('loginPassword').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('regPw2').addEventListener('keydown',e=>{if(e.key==='Enter')doRegister();});
 </script>
 </body>
 </html>
